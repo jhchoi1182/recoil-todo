@@ -8,10 +8,16 @@ const Todo = ({ text, id, category }: ITodo) => {
     const {
       currentTarget: { name },
     } = event;
-    setTodos((oldToDos) => {
-      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+    setTodos((oldTodos) => {
+      const targetIndex = oldTodos.findIndex((toDo) => toDo.id === id);
       const newToDo = { text, id, category: name as any };
-      return [...oldToDos.slice(0, targetIndex), newToDo, ...oldToDos.slice(targetIndex + 1)];
+      return [...oldTodos.slice(0, targetIndex), newToDo, ...oldTodos.slice(targetIndex + 1)];
+    });
+  };
+
+  const onDelete = () => {
+    setTodos((oldTodos) => {
+      return oldTodos.filter((todo) => todo.id !== id);
     });
   };
 
@@ -33,6 +39,7 @@ const Todo = ({ text, id, category }: ITodo) => {
           Done
         </button>
       )}
+      <button onClick={onDelete}>삭제</button>
     </li>
   );
 };
